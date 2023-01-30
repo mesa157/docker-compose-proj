@@ -1,0 +1,20 @@
+services:
+  apache:
+    image: "recruitment-apache"
+    ports:
+      - "80:80"
+    links:
+      - "tomcat-gui:tomcat-gui"
+
+  tomcat-api:
+    image: "recruitment-tomcat-api"
+    ports:      
+      - "81:8081"
+
+  tomcat-gui:
+    image: "recruitment-tomcat-gui"
+    ports:
+      - "80:8080"
+    links:
+      - "tomcat-api:tomcat-api"
+

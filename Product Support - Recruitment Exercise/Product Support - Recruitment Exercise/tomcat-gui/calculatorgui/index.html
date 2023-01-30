@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Recruitment task API consumer</title>
+</head>
+<body>
+<h1>Please fill the form below to calculate the Austrian tax</h1>
+<form>
+    <label for="taxRate">Tax rate:</label><br>
+    <input type="radio" id="taxRate10" name="taxRateRadio" value="10">
+    <label for="taxRate10">10</label><br>
+    <input type="radio" id="taxRate13" name="taxRateRadio" value="13">
+    <label for="taxRate13">13</label><br>
+    <input type="radio" id="taxRate20" name="taxRateRadio" value="20">
+    <label for="taxRate20">20</label><br>
+    
+    <label for="amountType">Amount type:</label><br>
+    <input type="radio" id="vatAmount" name="amountRadio" value="vat">
+    <label for="vatAmount">VAT</label><br>
+    <input type="radio" id="netAmount" name="amountRadio" value="net">
+    <label for="netAmount">NETTO</label><br>
+    <input type="radio" id="grossAmount" name="amountRadio" value="gross">
+    <label for="grossAmount">gross</label><br>
+    
+    <label for="amount">Amount:</label><br>
+    <input type="text" id="amount" name="amount"><br>
+    
+    <input id="calculateButton" type="button" value="calculate" onClick="calculate();">
+</form>
+</body>
+<script>
+    function calculate() {
+        var taxRateRadio = document.querySelector('input[name="taxRateRadio"]:checked').value;
+        var amountRadio = document.querySelector('input[name="amountRadio"]:checked').value;
+        var amount = document.forms[0].elements["amount"].value;
+        
+        var requestURL = 'http://localhost:81/calculator/v1/calculate?vatRate=' + taxRateRadio + '&' + amountRadio + 'Amount=' + amount;
+        
+        fetch(requestURL).then(response => {
+        return response.json();
+        })
+        .then(data => {
+        console.log(data)
+        })
+    }
+</script>
+</html>
